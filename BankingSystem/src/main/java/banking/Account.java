@@ -1,7 +1,7 @@
 package banking;
 
 /**
- * Abstract bank account class.<br>
+ * Abstract bank account class to be implemented by AccountHolder. <br>
  * <br>
  *
  * Private Variables:<br>
@@ -10,42 +10,49 @@ package banking;
  * {@link #pin}: int<br>
  * {@link #balance}: double
  */
-public abstract class Account {
+public abstract class Account implements AccountInterface {
 	private AccountHolder accountHolder;
 	private Long accountNumber;
 	private int pin;
 	private double balance;
 
-	protected Account(AccountHolder accountHolder, Long accountNumber, int pin, double startingDeposit) {
-		// complete the constructor
+	public Account(AccountHolder accountHolder, Long accountNumber, int pin, double balance) {
+		super();
+		this.accountHolder = accountHolder;
+		this.accountNumber = accountNumber;
+		this.pin = pin;
+		this.balance = balance;
 	}
 
 	public AccountHolder getAccountHolder() {
-		// complete the function
-        return null;
+        return accountHolder;
 	}
 
 	public boolean validatePin(int attemptedPin) {
-		// complete the function
-        return true;
+		if(this.pin == attemptedPin)
+			return true;
+		else 
+			return false;
 	}
 
 	public double getBalance() {
-		// complete the function
-        return -1;
+        return balance;
 	}
 
 	public Long getAccountNumber() {
-		// complete the function
-        return -1L;
+        return accountNumber;
 	}
 
 	public void creditAccount(double amount) {
-		// complete the function
+		this.balance += amount;
 	}
 
 	public boolean debitAccount(double amount) {
-		// complete the function
-        return true;
+		if(amount <= this.balance)
+		{
+			this.balance = this.balance-amount;
+			return true;
+		}
+        return false;
 	}
 }
